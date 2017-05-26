@@ -26,9 +26,13 @@ print("Using the configuration from " + args.config + ".py")
 
 config = __import__(args.config)
 
+#addfiles and doing resize when needed
 def addFiles(file, DIR, foldername, num, PREAUG_DIM):
   img = imread(DIR +"/" + foldername + "/" + file)
-  img = imresize(img, (PREAUG_DIM, PREAUG_DIM))
+  shape = img.shape
+  if (shape[0] != PREAUG_DIM or shape[1] != PREAUG_DIM):
+    #print('resize')
+    img = imresize(img, (PREAUG_DIM, PREAUG_DIM))
   return [num, img]
 
 # main method to be called by other scripts (or the script itself)
